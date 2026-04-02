@@ -10,7 +10,9 @@ function measure_bird_stats
 %   5. Saves per-recording stats to '_stats/' and a pairwise distance matrix
 %      to 'bird_stats_pdist_v2.mat'.
 %   6. Plots two distance-matrix figures: one species-averaged, one per-recording.
-
+%
+%  Author: Richard McWalter
+%
 %%  --- Initialisation ---
 
 clear all

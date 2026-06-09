@@ -1,0 +1,13 @@
+function ey_sub = Apply_Mean(ey_sub, X)
+% Apply_Mean  Shifts each subband envelope to match the target mean.
+%
+% Inputs:   ey_sub  synthetic subband envelopes (channels x time)
+%           X       target statistics struct with field Mx (col 1 = mean)
+%
+% Output:   ey_sub  mean-adjusted subband envelopes
+
+Ly = size(ey_sub, 2);
+for k = 1:size(ey_sub, 1)
+    My         = 1/Ly * sum(ey_sub(k,:));
+    ey_sub(k,:) = ey_sub(k,:) - My + X.Mx(k, 1);
+end

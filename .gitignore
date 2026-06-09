@@ -39,13 +39,14 @@ codegen/
 *.sbproj.backup
 *.sbproj.bak
 
-*.DS_Store
-
-*.mat
-
 # Additional files to ignore
+*.DS_Store
+*.mat
 *.prj
+*.wav
 /DistanceMeasures/texture_stats/_ltfat/
 /DistanceMeasures/texture_stats/_minFunc_2012/
+/Models/*/_ltfat/
+/Models/*/_minFunc_2012/
 /resources/
 

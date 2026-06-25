@@ -70,7 +70,8 @@ data = array2table([udsm([1 2 7],:)'], 'VariableNames', {'C1', 'C2', 'C3'});
 withinDesign = table([1 2 3]', 'VariableNames', {'MixType'});
 % Fit the repeated measures model
 rmModel = fitrm(data, 'C1-C3~1', 'WithinDesign', withinDesign);
-
+rmANOVA = ranova(rmModel);
+disp(rmANOVA);
 tbl = multcompare(rmModel,"MixType",'ComparisonType','bonferroni')
 
 %% Post-hoc comparisons: effect of adding 1 distractor (8, 8+1, 8+1*)
@@ -82,7 +83,8 @@ data = array2table([udsm([2 3 4],:)'], 'VariableNames', {'C1', 'C2', 'C3'});
 withinDesign = table([1 2 3]', 'VariableNames', {'MixType'});
 % Fit the repeated measures model
 rmModel = fitrm(data, 'C1-C3~1', 'WithinDesign', withinDesign);
-
+rmANOVA = ranova(rmModel);
+disp(rmANOVA);
 tbl = multcompare(rmModel,"MixType",'ComparisonType','tukey-kramer')
 
 %% Post-hoc comparisons: effect of adding 8 distractors (8, 8+8, 8+8*)
@@ -93,7 +95,8 @@ data = array2table([udsm([2 5 6],:)'], 'VariableNames', {'C1', 'C2', 'C3'});
 withinDesign = table([1 2 3]', 'VariableNames', {'MixType'});
 % Fit the repeated measures model
 rmModel = fitrm(data, 'C1-C3~1', 'WithinDesign', withinDesign);
-
+rmANOVA = ranova(rmModel);
+disp(rmANOVA);
 tbl = multcompare(rmModel,"MixType",'ComparisonType','tukey-kramer')
 
 %% Post-hoc comparisons: all simultaneous-chorus conditions (8+1, 8+1*, 8+8, 8+8*)
@@ -104,7 +107,8 @@ data = array2table([udsm([3 4 5 6],:)'], 'VariableNames', {'C1', 'C2', 'C3', 'C4
 withinDesign = table([1 2 3 4]', 'VariableNames', {'MixType'});
 % Fit the repeated measures model
 rmModel = fitrm(data, 'C1-C4~1', 'WithinDesign', withinDesign);
-
+rmANOVA = ranova(rmModel);
+disp(rmANOVA);
 tbl = multcompare(rmModel,"MixType",'ComparisonType','tukey-kramer')
 
 %% Post-hoc comparisons: 8-bird baseline + all simultaneous conditions (8, 8+1, 8+1*, 8+8, 8+8*)
@@ -115,7 +119,8 @@ data = array2table([udsm(2:6,:)'], 'VariableNames', {'C1', 'C2', 'C3', 'C4', 'C5
 withinDesign = table([1:5]', 'VariableNames', {'MixType'});
 % Fit the repeated measures model
 rmModel = fitrm(data, 'C1-C5~1', 'WithinDesign', withinDesign);
-% rmANOVA = ranova(rmModel)
+rmANOVA = ranova(rmModel);
+disp(rmANOVA);
 multcompare(rmModel,"MixType",'ComparisonType','bonferroni')
 % [results,~,~,gnames] = multcompare(rmModel,"MixType",'ComparisonType','tukey-kramer')
 
@@ -127,7 +132,8 @@ data = array2table([udsm(:,:)'], 'VariableNames', {'C1', 'C2', 'C3', 'C4','C5','
 withinDesign = table([1:7]', 'VariableNames', {'MixType'});
 % Fit the repeated measures model
 rmModel = fitrm(data, 'C1-C7~1', 'WithinDesign', withinDesign);
-rmANOVA = ranova(rmModel)
+rmANOVA = ranova(rmModel);
+disp(rmANOVA);
 % tbl = multcompare(rmModel,"MixType",'ComparisonType','tukey-kramer')
 % multcompare(rmModel,"MixType",'ComparisonType','tukey-kramer')
 

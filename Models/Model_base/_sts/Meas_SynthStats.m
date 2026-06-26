@@ -1,7 +1,7 @@
 function X = Meas_SynthStats(dex_sub,dexm_sub,mfb_mode)
 
 % Load system settings
-load(['_system/AudSys_Setup_' mfb_mode '.mat'])
+load(['../Model_base/_system/AudSys_Setup_' mfb_mode '.mat'])
 
 % measure input signal statistics 
 [X.Px,X.I] = Envelope_Power(dex_sub);

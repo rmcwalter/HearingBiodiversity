@@ -35,7 +35,7 @@ load(['../Model_base/_system/AudSys_Setup_' mfb_mode '.mat'])
 
 % Collect all WAV files for 50 subjects
 for k = 1:50
-    dt{k} = dir(['/Volumes/SD512/macaulay_orig/McWalter ML Request/exp8/_discrimination_task_8a_S' num2str(k,'%02.f') '/*.wav']);
+    dt{k} = dir(['../exp8/_discrimination_task_8a_S' num2str(k,'%02.f') '/*.wav']);
 end
 
 % Concatenate into a single flat list d

@@ -14,16 +14,16 @@ observer-model code used in the paper.
 The code is organized as a four-stage pipeline:
 
 ```
-BirdSpeciesDistance/  ->  DistanceMeasures/  ->  Experiments/  ->  Models/
-   (acoustic survey)     (behavior-relevant       (human           (observer
-                          distance metrics)        psychophysics)   model + ablation)
+BirdSpeciesDistance/  ->  Experiments/  ->  DistanceMeasures/  ->  Models/
+   (acoustic survey)      (human            (behavior-relevant   (observer
+                           psychophysics)    distance metrics)    model + ablation)
 ```
 
 | Directory | Role |
 |---|---|
 | `BirdSpeciesDistance/` | Exploratory acoustic analysis: extracts auditory texture statistics from field recordings of 10 European bird species and computes pairwise acoustic-distance matrices between species/recordings. |
-| `DistanceMeasures/` | Computes the acoustic distance metrics used to explain human behavior (spectrum, envelope variance, envelope correlation, modulation power, loudness, pitch/YIN) and correlates them with the Experiment 4b discrimination data (`fig4e.m` → **Figure 4e**). |
 | `Experiments/` | Human psychophysics: stimuli-generation/analysis scripts and raw behavioral data (`.mat`) for Experiments 1–6, plus the master data table `S3. Human_Subject_experiment_data.xlsx`. |
+| `DistanceMeasures/` | Computes the acoustic distance metrics used to explain human behavior (spectrum, envelope variance, envelope correlation, modulation power, loudness, pitch/YIN) and correlates them with the Experiment 4b discrimination data (`fig4e.m` → **Figure 4e**). |
 | `Models/` | The auditory texture observer model: a noisy ideal-observer that performs the same discrimination tasks as the human listeners, fit to human data and used for a statistic-class ablation study (Figures 5b/5d, Supplementary Figure 4). |
 
 Each of these directories bundles its own private copy of the shared support

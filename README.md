@@ -2,7 +2,7 @@
 
 MATLAB code accompanying:
 
-> McWalter, R. & Lorenzi, C. "Human perception of avian biodiversity in naturalistic auditory scenes." *PLOS Computational Biology* (in press).
+> McWalter, R. & Lorenzi, C. "Human perception of avian biodiversity in naturalistic auditory scenes.".
 >
 > Laboratoire des Systèmes Perceptifs, Département d'Études Cognitives, École Normale Supérieure, PSL University, CNRS, Paris, France.
 

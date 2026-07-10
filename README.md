@@ -1,8 +1,10 @@
-# Human Perception of Biodiversity in Naturalistic Auditory Scenes
+# Human perception of avian biodiversity in naturalistic auditory scenes
 
 MATLAB code accompanying:
 
-> McWalter, R. & Lorenzi, C. "Human Perception of Biodiversity in Naturalistic Auditory Scenes." *PLOS Computational Biology* (in press).
+> McWalter, R. & Lorenzi, C. "Human perception of avian biodiversity in naturalistic auditory scenes." *PLOS Computational Biology* (in press).
+>
+> Laboratoire des Systèmes Perceptifs, Département d'Études Cognitives, École Normale Supérieure, PSL University, CNRS, Paris, France.
 
 This repository contains the acoustic analysis, psychophysical experiment, and
 computational observer-model code used in the paper. The paper asks how
@@ -36,37 +38,50 @@ scripts can be run directly from within their containing folder.
 
 ## Experiments
 
-All tasks are 3-alternative forced-choice / 3-interval oddity tasks (chance =
-1/3). Behavioral results are analyzed with repeated-measures ANOVA
-(`fitrm`/`ranova`) and paired t-tests.
+All tasks are three-interval, forced-choice oddity tasks (chance = 1/3):
+listeners hear three intervals, two of which are the "standard" and one the
+"target," and must identify the odd one out. Behavioral results are analyzed
+with repeated-measures ANOVA (`fitrm`/`ranova`) and paired t-tests. Ten bird
+species (recordings from the Cornell Lab of Ornithology's Macaulay Library,
+sampled to reflect the Parc naturel régional de la Haute Vallée de Chevreuse,
+France) form the stimulus database; "chorus size" is the number of
+superimposed individual bird vocalizations.
 
 | Experiment | Script(s) | Paradigm |
 |---|---|---|
-| 1 | `Experiments/exp1_exp2/exp1a.m`, `exp1b.m` | Discrimination as a function of the number of chorus exemplars (1, 2, 4, 8, 16, 32), under two stimulus conditions (a/b). |
-| 3 | `Experiments/exp3/exp3a.m` | Chorus-size discrimination: 3 chorus sizes (1, 8, 32 individuals) × 2 stimulus durations (0.05 s, 2 s). |
-| 3 | `Experiments/exp3/exp3b.m` | Species- vs. exemplar-level discrimination, at the same 2 durations. |
-| 4 | `Experiments/exp4/exp4a.m` | Mixture-discrimination task: Different-Species / Mixture / Same-Species conditions, across 5 chorus sizes (2, 4, 8, 16, 32 species). |
-| 4 | `Experiments/exp4/exp4b.m` | Same 3 conditions at a fixed chorus size, broken down by all 45 pairwise species combinations. Feeds `DistanceMeasures/fig4e.m` and the `Models/Exp4b` observer model. |
-| 5 | `Experiments/exp5/exp5.m` | Exemplar discrimination against a simultaneous chorus: solo, 8-chorus, 32-chorus, and "8+1"/"8+8" simultaneous-mixture conditions (with oracle-style same-exemplar-distractor controls). |
-| 6 | `Experiments/exp6/exp6a.m` | Exemplar discrimination with **geophony** background (isolated vs. mixed, chorus sizes 1/8/32, plus background-only). |
-| 6 | `Experiments/exp6/exp6b.m` | Same design as 6a with **biophony** background. |
+| 1 (species abundance) | `Experiments/exp1_exp2/exp1a.m` | Chorus-size discrimination: standard and target choruses (1–32 individuals) sampled from the **same** recording/individual. |
+| 1 (species abundance) | `Experiments/exp1_exp2/exp1b.m` | Same design as 1a, but the two standard intervals are sampled from **different** recordings/individuals of the same species. |
+| 2 (within/across species) | trials intermixed with `exp1a.m`/`exp1b.m` | Same-species discrimination (standard/target = same species, different individuals) and different-species discrimination (standard/target = different species), at matched chorus sizes 1–32. |
+| 3 (abundance cues) | `Experiments/exp3/exp3a.m` | Exemplar discrimination for chorus sizes 1, 8, 32, at two interval durations (50 ms vs. 2 s), testing reliance on temporal detail vs. summary statistics. |
+| 3 (abundance cues) | `Experiments/exp3/exp3b.m` | Exemplar discrimination vs. species discrimination at chorus size 32, same two durations. |
+| 4 (species richness) | `Experiments/exp4/exp4a.m` | Species-mixture discrimination: Different-Species / Mixture-of-2-Species / Same-Species conditions, across chorus sizes 2, 4, 8, 16, 32. |
+| 4 (species richness) | `Experiments/exp4/exp4b.m` | Same 3 conditions at a fixed chorus size of 16, covering all 45 pairwise combinations of the 10 species. Feeds `DistanceMeasures/fig4e.m` and the `Models/Exp4b` observer model. |
+| 5 (grouping/segregation) | `Experiments/exp5/exp5.m` | Exemplar discrimination with a concurrent chorus of a different species: baselines (1, 8, 32 same-species) plus "8+1", "8+1\*", "8+8", "8+8\*" mixture conditions (`*` = species pair with most *similar* texture statistics; unstarred = most *different*). |
+| 6a (geophony) | `Experiments/exp6/exp6a.m` | Exemplar discrimination (chorus sizes 1/8/32) with vs. without a concurrent **geophony** background (rain, river, wind), plus a background-only condition. |
+| 6b (biophony) | `Experiments/exp6/exp6b.m` | Same design as 6a with a concurrent **biophony** (non-bird biological) background (insects, frogs). |
 
 ## Models
 
-`Models/` implements an **auditory texture observer model** (a noisy ideal
-observer) that performs the same tasks as human listeners:
+`Models/` implements **observer models** — noisy ideal observers that perform
+the same discrimination tasks as human listeners, given the trial's actual
+stimuli. For Experiment 4b, seven variants are compared: one built on the
+6-class **auditory texture** representation, and six built on individual
+acoustic cues (frequency spectrum, envelope coefficient of variation,
+envelope correlation, modulation power, loudness, pitch). The auditory
+texture model's 6 statistic classes are envelope mean, envelope coefficient
+of variation, envelope skewness, envelope correlation, modulation power, and
+modulation correlation. The shared model structure:
 
-1. Extract the same 6 classes of auditory texture statistics used throughout
-   the paper — envelope mean, envelope coefficient of variation, envelope
-   skewness, envelope correlation, modulation power, modulation correlation —
-   from the actual experimental stimuli.
-2. Z-score each statistic across all stimuli.
-3. On each simulated trial, add independent Gaussian internal noise to each
-   statistic (noise level `NP`), then compute pairwise Euclidean distances
-   between the intervals of the trial and pick the odd one out.
-4. Calibrate `NP` so the model's mean performance matches mean human
-   performance (a human-calibrated noisy-ideal-observer, not a free-fit
-   regression).
+1. Extract the relevant statistic(s) from each of the three trial intervals,
+   over the stimulus's actual extent.
+2. Z-score each statistic class across all stimuli.
+3. Add independent Gaussian internal noise to each statistic (magnitude
+   `NP`, one value per class), then compute the pairwise Euclidean distance
+   between the three intervals and pick the interval most different from the
+   other two.
+4. Calibrate `NP` so the model's performance matches mean human performance
+   (a human-calibrated noisy-ideal-observer, not a free-fit regression); for
+   the auditory texture model this calibration is class-specific.
 
 **Ablation** studies remove one or more statistic classes from the distance
 computation (by zeroing their weight) to determine which classes drive
@@ -75,24 +90,30 @@ of the 6 classes are tested.
 
 | Directory | Contents |
 |---|---|
-| `Models/Exp1/` | Earlier/simpler texture-distance model for Experiments 1a/1b (`texture_stats_distance_for_task1a_v2.m`, `..._task1b_v2.m`). |
+| `Models/Exp1/` | Texture-statistics distance model for Experiments 1a/1b and 2, simulating the 3-AFC abundance/species task directly from statistic distances (no internal-noise observer stage): `texture_stats_distance_for_task1a_v2.m`, `..._task1b_v2.m`. |
 | `Models/Exp4b/` | Main observer model for Experiment 4b: `texture_observer_model.m` (driver: single-statistic models, leave-one-out ablation, all-subsets ablation, `NP` calibration), `noise_and_distance.m`, `do_trials.m`, `measure_mixdisc_task_stats.m`. |
-| `Models/Exp5/` | Observer model adapted to the Experiment 5 simultaneous-chorus oddity task, including an oracle-stimulus variant (`Observer_model_exp5.m`, `Observer_model_exp5_ablation.m`, `run_model.m`, `run_model_ablation.m`). |
+| `Models/Exp5/` | Observer model (and an "oracle" variant that operates on the individual, pre-mixture species streams) for the Experiment 5 simultaneous-chorus oddity task, plus a leave-one-out/all-subsets ablation: `Observer_model_exp5.m`, `Observer_model_exp5_ablation.m`, `run_model.m`, `run_model_ablation.m`, `AudTextModel_exp5_measure_stats.m`. |
+| `Models/Exp6/` | Empty in this deposit — the Experiment 6 (geophony/biophony) observer model shown in paper Figure 7B is not included. |
 | `Models/Model_base/`, `Models/Supporting_files/` | Shared auditory front-end (`_sts`, `_system`) and bundled toolboxes (`_ltfat`, `_minFunc_2012`) reused across model variants. |
 
 ## Figure reproduction map
 
 | Script | Paper figure |
 |---|---|
-| `DistanceMeasures/fig4e.m` | Figure 4e |
-| `Models/Exp4b/observer_model_figure5b.m` | Figure 5b |
-| `Models/Exp4b/observer_model_figure5d.m` | Figure 5d |
-| `Models/Exp4b/observer_model_suppinfo_figure4.m` | Supplementary Information Figure 4 (ablation study) |
-| `BirdSpeciesDistance/measure_bird_stats.m` | Species/recording acoustic-distance matrices (see `BirdSpeciesDistance/plots/`) |
-
-Other `Experiments/exp*.m` scripts reproduce the corresponding main-text
-behavioral-results figures for each experiment; cross-check figure numbers
-against the manuscript.
+| `BirdSpeciesDistance/measure_bird_stats.m` | Figure 1D–E (auditory texture model schematic; within-/between-species acoustic-distance matrix) |
+| `Experiments/exp1_exp2/exp1a.m`, `exp1b.m` | Figure 2 (Experiment 1 abundance discrimination, panels A–B; Experiment 2 species discrimination, panels C–D) |
+| `Experiments/exp3/exp3a.m`, `exp3b.m` | Figure 3 (Experiment 3a/b: exemplar/species discrimination vs. duration and chorus size) |
+| `Experiments/exp4/exp4a.m`, `exp4b.m` | Figure 4A–D (Experiment 4a/b: species-mixture discrimination) |
+| `DistanceMeasures/fig4e.m` | Figure 4E (correlation of 6 acoustic-cue distances with mixture-discrimination performance) |
+| `Models/Exp4b/observer_model_figure5b.m` | Figure 5B (per-condition model-vs-human comparison, 7 observer models) |
+| `Models/Exp4b/observer_model_figure5d.m` | Figure 5D (model-vs-human correlation scatter, 7 observer models) |
+| `Models/Exp4b/observer_model_suppinfo_figure4.m` | Supporting Information S1 Figure 4a (Experiment 4b ablation study) |
+| `Experiments/exp5/exp5.m` | Figure 6A–D (Experiment 5: species-mixture exemplar discrimination) |
+| `Experiments/exp6/exp6a.m`, `exp6b.m` | Figure 6E–F (Experiment 6a/b: geophony/biophony background) |
+| `Models/Exp5/Observer_model_exp5.m` | Figure 7A (Experiment 5 observer model and oracle model) |
+| `Models/Exp5/Observer_model_exp5_ablation.m` | Supporting Information S1 Figure 4b (Experiment 5 ablation study) |
+| `Models/Exp1/texture_stats_distance_for_task1a_v2.m`, `..._task1b_v2.m` | Figure 7C–D (Experiment 1/2 abundance and species discrimination as texture-statistics distance) |
+| — (not in this deposit) | Figure 7B (Experiment 6 observer model) |
 
 ## Dependencies
 

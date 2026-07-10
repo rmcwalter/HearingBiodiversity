@@ -7,13 +7,7 @@ MATLAB code accompanying:
 > Laboratoire des Systèmes Perceptifs, Département d'Études Cognitives, École Normale Supérieure, PSL University, CNRS, Paris, France.
 
 This repository contains the acoustic analysis, psychophysical experiment, and
-computational observer-model code used in the paper. The paper asks how
-listeners judge the acoustic/species diversity of natural sound scenes
-("choruses" of birdsong, with and without background geophony/biophony), and
-tests whether a peripheral **auditory texture** representation (subband
-envelope statistics and modulation statistics, in the style of McDermott &
-Simoncelli's sound-texture model) can account for human discrimination
-performance.
+observer-model code used in the paper.
 
 ## Repository layout
 

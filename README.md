@@ -120,9 +120,9 @@ of the 6 classes are tested.
 Two third-party toolboxes are bundled alongside the analysis code (added via
 `addpath(genpath(...))` at the top of each script):
 
-- **LTFAT** (Large Time-Frequency Analysis Toolbox) v1.4.3, Søndergaard et
-  al. — auditory gammatone filterbank machinery. Licensed under GPLv3 (see
-  `_ltfat/COPYING`).
+- **[LTFAT](https://ltfat.org)** (Large Time-Frequency Analysis Toolbox)
+  v1.4.3, Søndergaard et al. — auditory gammatone filterbank machinery.
+  Licensed under GPLv3 (see `_ltfat/COPYING`).
 - **minFunc** (Schmidt, 2012) — unconstrained optimization routines (L-BFGS,
   conjugate gradient).
 
@@ -148,7 +148,8 @@ auditory front-end parameters (gammatone/modulation filterbanks) cached by
 
 ## License
 
-Code authored by the paper's authors is provided for reproducing the
-analyses reported in the paper. Note that the bundled LTFAT toolbox is
-distributed under the GNU GPLv3; see `_ltfat/COPYING` for details before
-redistributing.
+Code authored by the paper's authors is released under the [MIT
+License](https://opensource.org/licenses/MIT) — free to use, modify, and
+redistribute. Note that the bundled third-party [LTFAT](https://ltfat.org)
+toolbox is distributed separately under the GNU GPLv3 (see
+`_ltfat/COPYING`) and retains its own license terms.

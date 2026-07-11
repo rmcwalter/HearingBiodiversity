@@ -87,7 +87,7 @@ of the 6 classes are tested.
 | `Models/Exp1/` | Texture-statistics distance model for Experiments 1a/1b and 2, simulating the 3-AFC abundance/species task directly from statistic distances (no internal-noise observer stage): `texture_stats_distance_for_task1a_v2.m`, `..._task1b_v2.m`. |
 | `Models/Exp4b/` | Main observer model for Experiment 4b: `texture_observer_model.m` (driver: single-statistic models, leave-one-out ablation, all-subsets ablation, `NP` calibration), `noise_and_distance.m`, `do_trials.m`, `measure_mixdisc_task_stats.m`. |
 | `Models/Exp5/` | Observer model (and an "oracle" variant that operates on the individual, pre-mixture species streams) for the Experiment 5 simultaneous-chorus oddity task, plus a leave-one-out/all-subsets ablation: `Observer_model_exp5.m`, `Observer_model_exp5_ablation.m`, `run_model.m`, `run_model_ablation.m`, `AudTextModel_exp5_measure_stats.m`. |
-| `Models/Exp6/` | Empty in this deposit — the Experiment 6 (geophony/biophony) observer model shown in paper Figure 7B is not included. |
+| `Models/Exp6/` | Observer model for the Experiment 6 geophony/biophony background task (paper Figure 7B): `observer_model_v3_geo.m`/`observer_model_v3_bio.m` extract and z-score texture statistics for the geophony/biophony stimulus sets, `run_model_v2.m` runs the noisy-observer oddity-task decision, and `observer_model_exp6_v3.m` is the driver that runs the model and plots model-vs-human performance. |
 | `Models/Model_base/`, `Models/Supporting_files/` | Shared auditory front-end (`_sts`, `_system`) and bundled toolboxes (`_ltfat`, `_minFunc_2012`) reused across model variants. |
 
 ## Figure reproduction map
@@ -107,7 +107,7 @@ of the 6 classes are tested.
 | `Models/Exp5/Observer_model_exp5.m` | Figure 7A (Experiment 5 observer model and oracle model) |
 | `Models/Exp5/Observer_model_exp5_ablation.m` | Supporting Information S1 Figure 4b (Experiment 5 ablation study) |
 | `Models/Exp1/texture_stats_distance_for_task1a_v2.m`, `..._task1b_v2.m` | Figure 7C–D (Experiment 1/2 abundance and species discrimination as texture-statistics distance) |
-| — (not in this deposit) | Figure 7B (Experiment 6 observer model) |
+| `Models/Exp6/observer_model_exp6_v3.m` | Figure 7B (Experiment 6 geophony/biophony observer model) |
 
 ## Dependencies
 

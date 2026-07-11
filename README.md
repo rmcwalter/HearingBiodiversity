@@ -149,6 +149,8 @@ auditory front-end parameters (gammatone/modulation filterbanks) cached by
 
 Code authored by the paper's authors is released under the [MIT
 License](https://opensource.org/licenses/MIT) — free to use, modify, and
-redistribute. Note that the bundled third-party [LTFAT](https://ltfat.org)
-toolbox is distributed separately under the GNU GPLv3 (see
-`_ltfat/COPYING`) and retains its own license terms.
+redistribute.
+
+## Citation
+
+To be added.

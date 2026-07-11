@@ -11,7 +11,7 @@ observer-model code used in the paper.
 
 ## Repository layout
 
-The code is organized as a four-stage pipeline:
+The code is organized as a four folders:
 
 ```
 BirdSpeciesDistance/  ->  Experiments/  ->  DistanceMeasures/  ->  Models/
@@ -26,7 +26,7 @@ BirdSpeciesDistance/  ->  Experiments/  ->  DistanceMeasures/  ->  Models/
 | `DistanceMeasures/` | Computes the acoustic distance metrics used to explain human behavior (spectrum, envelope variance, envelope correlation, modulation power, loudness, pitch/YIN) and correlates them with the Experiment 4b discrimination data (`fig4e.m` → **Figure 4e**). |
 | `Models/` | The auditory texture observer model: a noisy ideal-observer that performs the same discrimination tasks as the human listeners, fit to human data and used for a statistic-class ablation study (Figures 5b/5d, Supplementary Figure 4). |
 
-Each of these directories bundles its own private copy of the shared support
+Each of these directories contains reference to the shared support
 code it needs (see [Dependencies](#dependencies) below), so most top-level
 scripts can be run directly from within their containing folder.
 

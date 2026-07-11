@@ -60,8 +60,8 @@ superimposed individual bird vocalizations.
 the same discrimination tasks as human listeners, given the trial's actual
 stimuli. For Experiment 4b, seven variants are compared: one built on the
 6-class **auditory texture** representation, and six built on individual
-acoustic cues (frequency spectrum, envelope coefficient of variation,
-envelope correlation, modulation power, loudness, pitch). The auditory
+acoustic cues (frequency spectrum (envelope mean), envelope coefficient of variation,
+envelope correlation, modulation power, loudness - Chalupper 2002, pitch - YIN). The auditory
 texture model's 6 statistic classes are envelope mean, envelope coefficient
 of variation, envelope skewness, envelope correlation, modulation power, and
 modulation correlation. The shared model structure:

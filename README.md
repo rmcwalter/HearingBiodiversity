@@ -74,8 +74,7 @@ modulation correlation. The shared model structure:
    between the three intervals and pick the interval most different from the
    other two.
 4. Calibrate `NP` so the model's performance matches mean human performance
-   (a human-calibrated noisy-ideal-observer, not a free-fit regression); for
-   the auditory texture model this calibration is class-specific.
+   for the auditory texture model this calibration is class-specific.
 
 **Ablation** studies remove one or more statistic classes from the distance
 computation (by zeroing their weight) to determine which classes drive

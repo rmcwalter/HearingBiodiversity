@@ -39,11 +39,13 @@ codegen/
 *.sbproj.backup
 *.sbproj.bak
 
-# Additional files to ignore
+# Additional files/folders to ignore
 *.DS_Store
 *.mat
 *.prj
 *.wav
+*.pdf
+/Stimuli/*
 
 # OSF CLI credentials
 .osfcli.config

@@ -46,12 +46,13 @@ codegen/
 *.wav
 *.pdf
 /Stimuli/*
-
-# OSF CLI credentials
-.osfcli.config
 /DistanceMeasures/texture_stats/_ltfat/
 /DistanceMeasures/texture_stats/_minFunc_2012/
 /Models/*/_ltfat/
 /Models/*/_minFunc_2012/
 /resources/
+
+# OSF CLI credentials
+.osfcli.config
+
 

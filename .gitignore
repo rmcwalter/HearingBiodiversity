@@ -45,7 +45,7 @@ codegen/
 *.prj
 *.wav
 *.pdf
-/Stimuli/*
+/Stimuli/
 /DistanceMeasures/texture_stats/_ltfat/
 /DistanceMeasures/texture_stats/_minFunc_2012/
 /Models/*/_ltfat/

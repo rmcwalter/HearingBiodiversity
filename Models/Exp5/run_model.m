@@ -1,4 +1,4 @@
-function run_model(d,Z,NP,kkX,dr)
+function run_model(d,Z,NP,gf,kkX,dr)
 % run_model  Auditory texture observer model for a 3-interval oddity task.
 %
 % The model compares auditory texture statistics between pairs of intervals,
@@ -22,14 +22,14 @@ function run_model(d,Z,NP,kkX,dr)
 %     rsp      - (trials/35 x 7 x 1) proportion correct per condition
 %     rsp_out  - scalar grand mean proportion correct
 
-clearvars -except d Z NP kkX dr
+clearvars -except d Z NP kkX dr gf
 
 mkdir(dr)
 
 rng('shuffle')
 
 for rx = 1
-    clearvars -except d rx rsp Z mx NP rsp_out kk kkX dr
+    clearvars -except d rx rsp Z mx NP rsp_out kk kkX dr gf
 
     % M and N define the 3 interval pairs for the oddity task:
     %   pair 1: intervals N(1)=1 vs M(1)=2   (pd(:,1,:))
@@ -54,22 +54,22 @@ for rx = 1
                 % nsm rows 3-4: noise for envelope CV pair
                 % nsm rows 5-6: noise for envelope skewness pair
                 for nk = 1:2
-                    nsm(nk,:) = NP(1)*randn(size(Y{N(n)}.Mx(:,1)))';
+                    nsm(nk,:) = gf*NP(1)*randn(size(Y{N(n)}.Mx(:,1)))';
                 end
                 for nk = 1:2
-                    nsm(nk+2,:) = NP(2)*randn(size(Y{N(n)}.Mx(:,1)))';
+                    nsm(nk+2,:) = gf*NP(2)*randn(size(Y{N(n)}.Mx(:,1)))';
                 end
                 for nk = 1:2
-                    nsm(nk+4,:) = NP(3)*randn(size(Y{N(n)}.Mx(:,1)))';
+                    nsm(nk+4,:) = gf*NP(3)*randn(size(Y{N(n)}.Mx(:,1)))';
                 end
                 for nk = 1:2
-                    nsc(nk,:) = NP(4)*randn(size(Y{N(n)}.Cx))';
+                    nsc(nk,:) = gf*NP(4)*randn(size(Y{N(n)}.Cx))';
                 end
                 for nk = 1:2
-                    nsmp(nk,:) = NP(5)*randn(size(Y{N(n)}.MPx))';
+                    nsmp(nk,:) = gf*NP(5)*randn(size(Y{N(n)}.MPx))';
                 end
                 for nk = 1:2
-                    nsmc(nk,:) = NP(6)*randn(size(Y{N(n)}.MCx))';
+                    nsmc(nk,:) = gf*NP(6)*randn(size(Y{N(n)}.MCx))';
                 end
 
                 % Euclidean distance between noisy representations of each stat class

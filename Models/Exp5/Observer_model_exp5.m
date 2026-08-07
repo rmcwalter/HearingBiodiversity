@@ -47,12 +47,12 @@ end
 %   NP(4) - envelope correlation noise
 %   NP(5) - modulation power noise
 %   NP(6) - modulation correlation noise
-for kk = 1%:100
+for kk = 1:100
     % run_model2(d,Z,NP(kk,:),kk);
-    run_model(d,Z,[1 1 2 1 8 5],kk,'exp5_model');
+    run_model(d,Z,[1 1 2 1 8 5],0.9,kk,'exp5_model');
 end
 
-%%  SECTION 2: Oracle stimuli
+%  SECTION 2: Oracle stimuli
 % Same model run with noise parameters scaled down by 1.275 to account for
 % the higher discriminability of oracle target intervals.
 
@@ -73,8 +73,8 @@ for n = 1:50
     end
 end
 
-for kk = 1%:100
-    run_model(d,Z,[1 1 2 1 8 5]./1.275,kk,'exp5_model_oracle');
+for kk = 1:100
+    run_model(do,Z,[1 1 2 1 8 5],0.8,kk,'exp5_model_oracle');
 end
 
 %%  SECTION 3: Load model outputs and plot against human data
@@ -172,7 +172,7 @@ e.LineWidth = 2;
 e.LineStyle = 'none';
 
 plot([5:8]+0.25,rspX([3 4 5 6]),'o','MarkerFaceColor',[0.85 0.85 0.85],...
-    'MarkerEdgeColor',c(1,:),'MarkerSize',6,'linewidth',1)
+    'MarkerEdgeColor',c(1,:),'MarkerSize',8,'linewidth',1)
 
 
 % e = errorbar([1:3]+0.25,rspX([1 2 7]),rspX_sd([1 2 7]),'color',c(1,:));
@@ -180,4 +180,4 @@ plot([5:8]+0.25,rspX([3 4 5 6]),'o','MarkerFaceColor',[0.85 0.85 0.85],...
 % e.LineWidth = 2;
 % e.LineStyle = 'none';
 % plot([1:3]+0.25,rspX([1 2 7]),'o','MarkerFaceColor',[0.85 0.85 0.85],...
-%     'MarkerEdgeColor',c(1,:),'MarkerSize',6,'linewidth',1)
+    % 'MarkerEdgeColor',c(1,:),'MarkerSize',6,'linewidth',1)

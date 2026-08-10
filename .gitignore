@@ -55,4 +55,7 @@ codegen/
 # OSF CLI credentials
 .osfcli.config
 
+# Local helper scripts
+/tools/
+
 

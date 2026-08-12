@@ -25,12 +25,19 @@ addpath(genpath('../Model_base/_sts'))                % sound texture synthesis 
 %   fcc        - subband centre frequencies
 %   mfb        - modulation filterbank
 mfb_mode = 'halfoctave';
-AudSys_Setup(mfb_mode);
+% AudSys_Setup(mfb_mode);
 load('../Model_base/_system/AudSys_Setup_halfoctave.mat')
 
 % Find the sound file directories (one sub-directory per sound family)
 ds = dir('_sounds/_dis*');
 
+for k = 1:11
+    d = dir([ds(k+11).folder '/' ds(k+11).name '/*.wav']);
+    dsn{k} = d;
+end
+save('dsn1b.mat','dsn');
+
+%%
 % Measure auditory texture statistics for each sound, for 3 non-overlapping
 % 2-second segments per file (indexed by m). Results are stored in cell array X
 % with dimensions {sound_family, file_ID, segment}.
@@ -142,6 +149,7 @@ save('p2_v2.mat','p')
 % --- Task simulation (can be run independently by loading p2_v2.mat) ---
 clear all
 load('p2_v2.mat')
+
 
 %%
 clearvars -except p

@@ -94,7 +94,7 @@ tl = {[{'Frequency Spectrum'}],...
     [{'Loudness'}],...
     [{'Pitch'}]};
 
-for N = 1:4%length(Nx)
+for N = 1:length(Nx)
     % Reset temporary variables, keeping only shared data needed across iterations
     clearvars -except Nx MXn SXn MXn_std SXn_std MX_results3 N tl
     [i,j] = find(~isnan(MXn));   % re-identify valid pairs after clearvars

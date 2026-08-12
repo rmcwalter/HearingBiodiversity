@@ -74,6 +74,18 @@ set(gcf,'position',[200 200 1200 300])
 subplot('position',[0.05 0.2 0.7 0.75])
 hold on
 
+[i,j] = find(~isnan(MXn));
+for k = 1:length(i)
+    MXn_temp(k) = MXn(i(k),j(k));
+    SXn_temp(k) = SXn(i(k),j(k));
+    MXn_std_temp(k) = MXn_std(i(k),j(k));
+    SXn_std_temp(k) = SXn_std(i(k),j(k));
+    MXi_temp(k) = MX_ind_mean(i(k),j(k));
+    MXi_std_temp(k) = MX_ind_se(i(k),j(k));
+end
+
+[~,Ik] = sort(MXn_temp);
+
 % Loop over all 45 species pairs, sorted by mixture performance (Ik)
 for k = 1:size(cmap,1)
     % Bar height = mean mixture discrimination accuracy for this pair

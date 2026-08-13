@@ -67,12 +67,12 @@ end
 
 %%
 % Save statistics to disk — use v7.3 format for large cell arrays
-save('X2.mat','X','-v7.3')
+save('X2_v2.mat','X','-v7.3')
 
 %%
 % --- Distance computation (can be run independently by loading X2.mat) ---
 clear all
-load X2.mat
+load X2_v2.mat
 
 %%
 ds = dir('_sounds/_dis*');
@@ -127,7 +127,7 @@ end
 %   stats_class:   1=Mx(mean), 2=Mx(var), 3=Mx(skew), 4=Cx, 5=MPx, 6=MCx
 dst = 'euclidean';
 kk = [2 3 1]; % for interval k, kk(k) is the other interval
-NX = [1 1 2 1 9 5]/2; % noise scale per statistics class
+NX = [1 1 2 1 8 5]/2; % noise scale per statistics class
 for n = 1:size(Y,1)
     disp(n)
     for m = 1:size(Y,2)
@@ -143,7 +143,7 @@ for n = 1:size(Y,1)
 end
 
 %%
-save('p2_v2.mat','p')
+save('p2_v3.mat','p')
 
 %%
 % --- Task simulation (can be run independently by loading p2_v2.mat) ---
@@ -153,17 +153,20 @@ load('p2_v2.mat')
 
 %%
 clearvars -except p
-ds = dir('_sounds/_dis*');
+% ds = dir('_sounds/_dis*');
+load('ds.mat')
+load('dsn1b.mat')
 CR = [];
 np = 0.04; % decision noise: small Gaussian jitter added to summed distances before argmin
 
-% Simulate the 3-AFC task 100 times and average to get stable proportion correct.
+% Simulate the 3-AFC task 1000 times and average to get stable proportion correct.
 % Sound families for task 1b are indices 12-22 (offset +11 relative to ds).
 % On each trial the model picks the interval with the minimum total distance
 % (summed across all statistics classes) after adding decision noise.
-for k = 1:100
+for k = 1:1000
     for n = 1:size(p,1)
-        d = dir([ds(n+11).folder '/' ds(n+11).name '/*.wav']);
+        % d = dir([ds(n+11).folder '/' ds(n+11).name '/*.wav']);
+        d = dsn{n};
         for m = 1:size(p,2)
             % Pick interval with smallest summed distance across stats classes
             [~,I] = min(np*randn(3,1) + sum(squeeze(p(n,m,:,:)),2));
@@ -226,11 +229,11 @@ end
 v1b = load('v1b.mat'); % human data: fields vm (mean per condition) and vx (per-subject)
 
 v1x = [];
-for k = 1:length(v1b.vm)-1
-    v1x = [v1x v1b.vm{k}'];
+for k = 1:length(v1b.v)
+    v1x = [v1x v1b.v{k}'];
 end
 
-[mean(v1x) mean(CR(:))] % [human model] overall proportion correct
+[mean(v1x,'all') mean(CR,'all')] % [human model] overall proportion correct
 
 %%
 % --- Figure: proportion correct vs N1/N2 condition ---
@@ -255,10 +258,10 @@ xL{6} = [21:26]+0.2;
 dof = 0;
 for n = 1:length(xL)-1
     se = std(v1b.vx{n},[],2)/sqrt(size(v1b.vx{n},2)); % human SEM across participants
-    sd = std(v{n},[],2);                               % model SD across sound families
+    sd = std(v{n},[],2)/2;                               % model SD across sound families
     if n < 5
         % Shaded error band: model (SD) and human (SEM)
-        patch([xL{n} fliplr(xL{n})],[vm{n}'+sd'./2 fliplr(vm{n}'-sd'./2)],c(n,:),'FaceAlpha',0.2,'EdgeAlpha',0)
+        patch([xL{n} fliplr(xL{n})],[vm{n}'+sd' fliplr(vm{n}'-sd')],c(n,:),'FaceAlpha',0.2,'EdgeAlpha',0)
         patch([xL{n} fliplr(xL{n})],[v1b.vm{n}'+se' fliplr(v1b.vm{n}'-se')],c(n,:),'FaceAlpha',0.2,'EdgeAlpha',0)
         plot(xL{n}-dof,vm{n},'-.','Color',c(n,:),'linewidth',2)
         plot(xL{n}-dof,vm{n},'s','MarkerFaceColor',dx,'MarkerEdgeColor',c(n,:),'MarkerSize',10,'linewidth',1.5)
@@ -267,7 +270,7 @@ for n = 1:length(xL)-1
     else
         % Single-point condition: use rectangular patch for error band
         patch([xL{n}-0.25 fliplr(xL{n})-0.25 fliplr(xL{n})+0.25 xL{n}+0.25],...
-            [vm{n}'+sd' fliplr(vm{n}'-sd'./2) fliplr(vm{n}'-sd'./2) vm{n}'+sd'],...
+            [vm{n}'+sd' fliplr(vm{n}'-sd') fliplr(vm{n}'-sd') vm{n}'+sd'],...
             c(n,:),'FaceAlpha',0.2,'EdgeAlpha',0)
         patch([xL{n}-0.25 fliplr(xL{n})-0.25 fliplr(xL{n})+0.25 xL{n}+0.25],...
             [v1b.vm{n}'+se' fliplr(v1b.vm{n}'-se') fliplr(v1b.vm{n}'-se') v1b.vm{n}'+se'],...
@@ -297,8 +300,8 @@ subplot('position',[0.7 0.1 0.2 0.8])
 hold on
 
 xL{6} = 1:6;
-sd = std(v{6},[],2);
-patch([xL{6} fliplr(xL{6})],[vm{6}'+sd'./2 fliplr(vm{6}'-sd'./2)],c(6,:),'FaceAlpha',0.2,'EdgeAlpha',0)
+sd = std(v{6},[],2)/2;
+patch([xL{6} fliplr(xL{6})],[vm{6}'+sd' fliplr(vm{6}'-sd')],c(6,:),'FaceAlpha',0.2,'EdgeAlpha',0)
 plot(xL{6},vm{6},'-.','Color',c(6,:),'linewidth',2)
 pp(1) = plot(xL{6},vm{6},'s','MarkerFaceColor',dx,'MarkerEdgeColor',c(6,:),'MarkerSize',10,'linewidth',1.5);
 

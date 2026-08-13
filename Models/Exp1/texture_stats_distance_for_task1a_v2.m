@@ -155,17 +155,20 @@ load('p1_v2.mat')
 
 %%
 clearvars -except p
-ds = dir('_sounds/_dis*');
+% ds = dir('_sounds/_dis*');
+load('ds.mat')
+load('dsn1a.mat')
 CR = [];
 np = 0.04; % decision noise: small Gaussian jitter added to summed distances before argmin
 
-% Simulate the 3-AFC task 100 times and average to get stable proportion correct.
+% Simulate the 3-AFC task 1000 times and average to get stable proportion correct.
 % On each trial the model picks the interval with the minimum total distance
 % (summed across all statistics classes) after adding decision noise.
 % The response is decoded from the filename tag 'TPx' (target position 1, 2, or 3).
 for k = 1:1000
     for n = 1:size(p,1)
-        d = dir([ds(n).folder '/' ds(n).name '/*.wav']);
+        % d = dir([ds(n).folder '/' ds(n).name '/*.wav']);
+        d = dsn{n};
         for m = 1:size(p,2)-60
             % Pick interval with smallest summed distance across stats classes
             [~,I] = min(np*randn(3,1) + sum(squeeze(p(n,m,:,:)),2));
@@ -216,14 +219,13 @@ end
 %%
 % Load human behavioural data and print mean proportion correct for a quick check
 v1a = load('v1a.mat'); % human data: fields vm (mean per condition) and v (per-subject)
+
 v1x = [];
-v1m = [];
-for k = 1:length(v1a.vm)-1
-    v1x = [v1x v1a.vm{k}'];
-    v1m = [v1m vm{k}'];
+for k = 1:length(v1a.v)
+    v1x = [v1x v1a.v{k}'];
 end
 
-[mean(v1x) mean(v1m)] % [human model] overall proportion correct
+[mean(v1x,'all') mean(CR,'all')] % [human model] overall proportion correct
 
 %%
 % --- Figure: proportion correct vs N1/N2 condition ---
@@ -266,7 +268,7 @@ for n = 1:length(xL)-1
             [v1a.vm{n}'+se' fliplr(v1a.vm{n}'-se') fliplr(v1a.vm{n}'-se') v1a.vm{n}'+se'],...
             c(n,:),'FaceAlpha',0.2,'EdgeAlpha',0)
         plot(xL{n}-dof,vm{n},'-.','Color',c(n,:),'linewidth',2)
-        plot(xL{n}-dof,vm{n},'s','MarkerFaceColor',dx,'MarkerEdgeColor',c(n,:),'MarkerSize',10,'linewidth',1.5)
+        plot(xL{n}-dof,vm{n},'o','MarkerFaceColor',dx,'MarkerEdgeColor',c(n,:),'MarkerSize',10,'linewidth',1.5)
         plot(xL{n},v1a.vm{n},'-','Color',c(n,:),'linewidth',2)
         plot(xL{n},v1a.vm{n},'o','MarkerFaceColor',c(n,:),'MarkerEdgeColor',dx,'MarkerSize',10,'linewidth',1.5)
     end

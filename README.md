@@ -139,7 +139,7 @@ auditory front-end parameters (gammatone/modulation filterbanks) cached by
   human-subject behavioral data referenced throughout the paper.
 - Large intermediate `.mat` files (extracted statistics, per-trial model
   outputs, precomputed distance matrices) are excluded from version control
-  via `.gitignore`. They can be found on osf using the permanent link
+  via `.gitignore`. They can be found on https://osf.io using the permanent link
   https://doi.org/10.17605/OSF.IO/AN57J.
 - The bundled `_ltfat` and `_minFunc_2012` toolboxes are excluded
   from version control and must be obtained separately (LTFAT:

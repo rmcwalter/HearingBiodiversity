@@ -9,7 +9,7 @@ MATLAB code accompanying:
 This repository contains the acoustic analysis, psychophysical experiment, and
 observer-model code used in the paper.
 
-Data, including experiment data, sound texture statistics, and observer model data can be found at: https://doi.org/10.17605/OSF.IO/AN57J
+Data, including experiment data, acoustic analysis, sound texture statistics, and observer model data can be found at: https://doi.org/10.17605/OSF.IO/AN57J
 
 ## Repository layout
 

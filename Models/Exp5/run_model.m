@@ -128,7 +128,7 @@ for k = 1:size(a_out,1)/35
 end
 rsp_out = mean(rsp(:));
 rsp_temp = mean(mean(rsp,3));
-rsp_temp([1 2 7])-[0.85 0.687 0.553]  % quick sanity check vs. expected performance
+rsp_temp([1 2 7])-[0.85 0.687 0.553];  % quick sanity check vs. expected performance
 
 % Save with noise parameter string in filename to allow parameter sweeps
 NPs = num2str(NP);

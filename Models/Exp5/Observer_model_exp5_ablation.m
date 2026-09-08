@@ -22,13 +22,13 @@ function Observer_model_exp5_ablation
 %%  SECTION 1: Run ablation for all 63 statistic subsets
 
 clear all
+warning off
 
-addpath(genpath('_ltfat'))
-addpath(genpath('_minFunc_2012'))
-addpath(genpath('_sts'))
+addpath(genpath('../Supporting_files/_ltfat'))
+addpath(genpath('../Supporting_files/_minFunc_2012'))
+addpath(genpath('../Model_base/_sts'))
 mfb_mode = 'halfoctave';
-AudSys_Setup(mfb_mode);
-load(['_system/AudSys_Setup_' mfb_mode '.mat'])
+load(['../Model_base/_system/AudSys_Setup_' mfb_mode '.mat'])
 
 
 load('exp5_stim_name.mat')
@@ -57,7 +57,7 @@ end
 % Run model for each subset (nt=n identifies which subset for file naming)
 for n = 1:63
     for kk = 1:20%size(NP,1)
-        run_model_ablation(d,Z,[1 1 2 1 8 5],kk,'rspZ3y',kkx(n,:),n);
+        run_model_ablation(d,Z,[1 1 2 1 8 5],0.9,kk,'exp5_model_ablation',kkx(n,:),n);
     end
 end
 

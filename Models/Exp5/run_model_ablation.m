@@ -1,4 +1,4 @@
-function run_model_ablation(d,Z,NP,kkX,dr,wt,nt)
+function run_model_ablation(d,Z,NP,gf,kkX,dr,wt,nt)
 % run_model_ablation  Observer model run for a specified subset of stat classes.
 %
 % Identical to run_model, except the distance aggregation step only uses
@@ -18,14 +18,14 @@ function run_model_ablation(d,Z,NP,kkX,dr,wt,nt)
 % Output:
 %   <dr>/<NP-string>_<kkX>_<nt>.mat  containing rsp_out and rsp
 
-clearvars -except d Z NP kkX dr wt nt
+clearvars -except d Z NP kkX dr wt nt gf
 
 mkdir(dr)
 
 rng('shuffle')
 
 for rx = 1
-    clearvars -except d rx rsp Z mx NP rsp_out kk kkX dr wt nt
+    clearvars -except d rx rsp Z mx NP rsp_out kk kkX dr wt nt gf
 
     % Interval pair indices for the 3-interval oddity task (see run_model)
     M = [2 3 3];
@@ -43,22 +43,22 @@ for rx = 1
             % (the subset selection happens after via wt)
             for n = 1:3
                 for nk = 1:2
-                    nsm(nk,:) = NP(1)*randn(size(Y{N(n)}.Mx(:,1)))';
+                    nsm(nk,:) = gf*(1)*randn(size(Y{N(n)}.Mx(:,1)))';
                 end
                 for nk = 1:2
-                    nsm(nk+2,:) = NP(2)*randn(size(Y{N(n)}.Mx(:,1)))';
+                    nsm(nk+2,:) = gf*NP(2)*randn(size(Y{N(n)}.Mx(:,1)))';
                 end
                 for nk = 1:2
-                    nsm(nk+4,:) = NP(3)*randn(size(Y{N(n)}.Mx(:,1)))';
+                    nsm(nk+4,:) = gf*NP(3)*randn(size(Y{N(n)}.Mx(:,1)))';
                 end
                 for nk = 1:2
-                    nsc(nk,:) = NP(4)*randn(size(Y{N(n)}.Cx))';
+                    nsc(nk,:) = gf*NP(4)*randn(size(Y{N(n)}.Cx))';
                 end
                 for nk = 1:2
-                    nsmp(nk,:) = NP(5)*randn(size(Y{N(n)}.MPx))';
+                    nsmp(nk,:) = gf*NP(5)*randn(size(Y{N(n)}.MPx))';
                 end
                 for nk = 1:2
-                    nsmc(nk,:) = NP(6)*randn(size(Y{N(n)}.MCx))';
+                    nsmc(nk,:) = gf*NP(6)*randn(size(Y{N(n)}.MCx))';
                 end
                 pd(m+(mk-1)*L,n,1) = pdist([nsm(1,:)+Y{N(n)}.Mx(:,1)';nsm(2,:)+Y{M(n)}.Mx(:,1)']);
                 pd(m+(mk-1)*L,n,2) = pdist([nsm(3,:)+Y{N(n)}.Mx(:,2)';nsm(4,:)+Y{M(n)}.Mx(:,2)']);
@@ -72,7 +72,7 @@ for rx = 1
 
     % Ablation: select only the classes indicated by non-zero entries of wt,
     % z-score each selected class's distances, then average across them.
-    length(find(wt~=0))
+    length(find(wt~=0));
     wt
     for k = 1:length(find(wt~=0))
         pd2(:,:,k) = reshape(zscore(reshape(pd(:,:,wt(k)),1,[])),Lmk*L,3);
@@ -112,9 +112,9 @@ end
 for k = 1:size(a_out,1)/35
     rsp(:,:,k) = reshape(a((k-1)*35+1:35*k),5,[]);
 end
-rsp_out = mean2(rsp);
+rsp_out = mean(rsp(:));
 rsp_temp = mean(mean(rsp,3));
-rsp_temp([1 2 7])-[0.85 0.687 0.553]  % sanity check vs. expected performance
+rsp_temp([1 2 7])-[0.85 0.687 0.553];  % sanity check vs. expected performance
 
 % Filename encodes noise params, run index, and ablation subset index
 NPs = num2str(NP);

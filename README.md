@@ -157,4 +157,6 @@ redistribute.
 
 Article Source: [Human perception of avian biodiversity in naturalistic auditory scenes](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1014775)
 
+Article Citation Downloads: [RIS or BibTex](https://journals.plos.org/ploscompbiol/article/citation?id=10.1371/journal.pcbi.1014775)
+
 McWalter R, Lorenzi C (2026) Human perception of avian biodiversity in naturalistic auditory scenes. PLOS Computational Biology 22(9): e1014775. https://doi.org/10.1371/journal.pcbi.1014775

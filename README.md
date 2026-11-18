@@ -5,6 +5,8 @@ MATLAB code accompanying:
 > McWalter, R. & Lorenzi, C. "Human perception of avian biodiversity in naturalistic auditory scenes.".
 >
 > Laboratoire des Systèmes Perceptifs, Département d'Études Cognitives, École Normale Supérieure, PSL University, CNRS, Paris, France.
+>
+> https://doi.org/10.1371/journal.pcbi.1014775
 
 This repository contains the acoustic analysis, psychophysical experiment, and
 observer-model code used in the paper.
